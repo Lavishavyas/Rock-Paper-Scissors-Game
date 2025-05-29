@@ -11,13 +11,11 @@ const genCompChoice = () => {
     let options = ["rock", "paper", "scissors"];
     const randIdx = Math.floor(Math.random() * 3);
     return options[randIdx];
-
 }
 
 const drawGame = () => {
-    
     msg.innerText = "Game was draw, Play again";
-    msg.style.backgroundColor = "081b31";
+    msg.style.backgroundColor = "#081b31"; // FIXED: Added missing #
 }
 
 const showWinner = (userWin, userChoice, compChoice) => {
@@ -29,49 +27,38 @@ const showWinner = (userWin, userChoice, compChoice) => {
         msg.style.backgroundColor = "green";
     } else {
         compScore++;
-        compUserPara.innerText = compScore;
-        
+        compScorePara.innerText = compScore; // FIXED: Changed from compUserPara
         msg.innerText = `You Lose, ${compChoice} beats your ${userChoice}`;
         msg.style.backgroundColor = "red";
     }
 };
 
-const playGame = () => {
+const playGame = (userChoice) => { // FIXED: Added userChoice parameter
     
     //Generate Computer Choice 
     const compChoice = genCompChoice();
-    
 
     if(userChoice == compChoice) {
         //Draw Game
         drawGame();
     } else {
-        let userWin = true;
+        let userWin;
         if (userChoice === "rock") {
-            //scissors,paper
-            userWin === compChoice === "paper" ? false : true;
-
+            userWin = compChoice === "paper" ? false : true; // FIXED: Changed === to =
         } else if (userChoice === "paper") {
-            //rock,scissors
-            userWin === compChoice === "scissors" ? false : true;
+            userWin = compChoice === "scissors" ? false : true; // FIXED
         } else {
-            //rock,paper
-            userWin === compChoice === "rock" ? false : true
+            userWin = compChoice === "rock" ? false : true; // FIXED
         }
         showWinner(userWin, userChoice, compChoice);
     }
-
 }
 
 choices.forEach((choice) => {
-    // console.log(choice);
     choice.addEventListener("click", () => {
         const userChoice = choice.getAttribute("id");
-        
-        playGame(userChoice);
-
-
-        
-
+        playGame(userChoice); // FIXED: Pass userChoice to playGame
     });
+});
+
 });
