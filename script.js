@@ -60,5 +60,3 @@ choices.forEach((choice) => {
         playGame(userChoice); // FIXED: Pass userChoice to playGame
     });
 });
-
-});
